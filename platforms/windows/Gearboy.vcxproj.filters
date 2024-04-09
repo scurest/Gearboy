@@ -75,6 +75,9 @@
     <ClCompile Include="..\..\src\Processor.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Processor_trace.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\RomOnlyMemoryRule.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -195,6 +198,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\MultiMBC1MemoryRule.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\opcode_deps.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\opcode_names.h">

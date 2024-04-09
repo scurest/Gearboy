@@ -34,6 +34,7 @@ SOURCES_CXX := \
     $(SRC_DIR)/opcodes.cpp \
     $(SRC_DIR)/opcodes_cb.cpp \
     $(SRC_DIR)/Processor.cpp \
+    $(SRC_DIR)/Processor_trace.cpp \
     $(SRC_DIR)/RomOnlyMemoryRule.cpp \
     $(SRC_DIR)/Video.cpp \
     $(SRC_DIR)/audio/Blip_Buffer.cpp \

@@ -33,6 +33,7 @@
     <ClCompile Include="..\..\src\opcodes.cpp" />
     <ClCompile Include="..\..\src\opcodes_cb.cpp" />
     <ClCompile Include="..\..\src\Processor.cpp" />
+    <ClCompile Include="..\..\src\Processor_trace.cpp" />
     <ClCompile Include="..\..\src\RomOnlyMemoryRule.cpp" />
     <ClCompile Include="..\..\src\Video.cpp" />
     <ClCompile Include="..\audio-shared\Sound_Queue.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="..\..\src\MemoryRule.h" />
     <ClInclude Include="..\..\src\Memory_inline.h" />
     <ClInclude Include="..\..\src\MultiMBC1MemoryRule.h" />
+    <ClInclude Include="..\..\src\opcode_deps.h" />
     <ClInclude Include="..\..\src\opcode_names.h" />
     <ClInclude Include="..\..\src\opcode_timing.h" />
     <ClInclude Include="..\..\src\Processor.h" />

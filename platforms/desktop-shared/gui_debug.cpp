@@ -357,6 +357,19 @@ static void debug_window_disassembler(void)
     if (ImGui::Button("Run To Cursor"))
         gui_debug_runtocursor();
 
+    if (!processor->IsTracing())
+    {
+        if (ImGui::Button("Start CPU Trace"))
+            processor->StartTrace();
+    }
+    else
+    {
+        if (ImGui::Button("Stop CPU Trace"))
+            processor->StopTrace();
+        ImGui::SameLine();
+        ImGui::Text("%u MB", processor->GetTraceSizeInMB());
+    }
+
     static bool follow_pc = true;
     static bool show_mem = true;
     static bool show_symbols = true;

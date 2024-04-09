@@ -76,6 +76,11 @@ public:
     void UpdateTimers(u8 ticks);
     void UpdateSerial(u8 ticks);
 
+    void StartTrace();
+    void StopTrace();
+    bool IsTracing() const;
+    unsigned GetTraceSizeInMB() const;
+
 private:
     typedef void (Processor::*OPCptr) (void);
     OPCptr m_OPCodes[256];
@@ -116,6 +121,14 @@ private:
     std::list<GameSharkCode> m_GameSharkList;
 
     ProcessorState m_ProcessorState;
+
+    // CPU Tracing
+    FILE* m_pTraceFile;
+    u64 m_iTraceSize;
+    void Trace_Log(const char* message);
+    void Trace_Instruction(u16 address);
+    int Trace_PrintAddress(char str[10], u16 address);
+    int Trace_PrintDependency(char* str, u8 opcodes[4], u8 dep);
 
 private:
     Processor::Interrupts InterruptPending();

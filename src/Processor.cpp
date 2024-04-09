@@ -47,6 +47,8 @@ Processor::Processor(Memory* pMemory)
     m_iReadCache = 0;
     m_bBreakpointHit = false;
     m_bRequestMemBreakpoint = false;
+    m_pTraceFile = nullptr;
+    m_iTraceSize = 0;
 
     m_ProcessorState.AF = &AF;
     m_ProcessorState.BC = &BC;
@@ -60,6 +62,7 @@ Processor::Processor(Memory* pMemory)
 
 Processor::~Processor()
 {
+    StopTrace();
 }
 
 void Processor::Init()
@@ -175,6 +178,8 @@ u8 Processor::RunFor(u8 ticks)
             }
             else
             {
+                u16 opcodeAddress = PC.GetValue();
+
                 u8 opcode = m_pMemory->Read(PC.GetValue());
                 PC.Increment();
 
@@ -222,6 +227,9 @@ u8 Processor::RunFor(u8 ticks)
                 }
                 else
                 {
+                    if (m_pTraceFile)
+                        Trace_Instruction(opcodeAddress);
+
                     (this->*opcodeTable[opcode])();
 
                     if (m_bBranchTaken)
@@ -298,24 +306,29 @@ void Processor::ServeInterrupt(Interrupts interrupt)
     switch (interrupt)
     {
         case VBlank_Interrupt:
+            Trace_Log(";VBlank Interrupt");
             m_iInterruptDelayCycles= 0;
             m_pMemory->Load(0xFF0F, if_reg & 0xFE);
             PC.SetValue(0x0040);
             UpdateGameShark();
             break;
         case LCDSTAT_Interrupt:
+            Trace_Log(";LCDSTAT Interrupt");
             m_pMemory->Load(0xFF0F, if_reg & 0xFD);
             PC.SetValue(0x0048);
             break;
         case Timer_Interrupt:
+            Trace_Log(";Timer Interrupt");
             m_pMemory->Load(0xFF0F, if_reg & 0xFB);
             PC.SetValue(0x0050);
             break;
         case Serial_Interrupt:
+            Trace_Log(";Serial Interrupt");
             m_pMemory->Load(0xFF0F, if_reg & 0xF7);
             PC.SetValue(0x0058);
             break;
         case Joypad_Interrupt:
+            Trace_Log(";Joypad Interrupt");
             m_pMemory->Load(0xFF0F, if_reg & 0xEF);
             PC.SetValue(0x0060);
             break;
