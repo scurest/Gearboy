@@ -1,3 +1,26 @@
+# `cpu-trace` Feature Branch
+
+This branch adds a _CPU trace_ function to Gearboy, inspired by the same feature in Duckstation. Press the **Start/Stop CPU Trace** button in the debugger to begin or end a trace. When tracing is on, every CPU instruction executed is logged to the `Gearboy_log.txt` file in the working directory.
+
+![](https://github.com/drhelius/Gearboy/assets/11024420/d5881dc5-bf80-435b-9e87-c49dcd23a8d2)
+
+> [!WARNING]
+> `Gearboy_log.txt` can grow very quickly (~5 MB/s). Be aware of disk usage and SSD wear. The current size of the trace file is shown next to the **Stop CPU Trace** button when tracing is on. You can use stepping and breakpoints to capture just the period of interest.
+
+A sample line from the trace file is
+
+```
+❶ROM5:55E1  ❷LD ($CAD1),A          ❸addr=WRA0:CAD1  A=$00
+```
+
+❶ PC / instruction address \
+❷ dissassembled instruction \
+❸ state of relevant memory & registers just _before_ the instruction executed
+
+The `ROM5` prefix on the address `ROM5:55E1` indicates the memory region (`ROM` = 0x4000 - 0x7FFF) and, for regions with switchable banks, the current bank number in hex (`5`).
+
+----------
+
 # Gearboy
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/drhelius/Gearboy/gearboy.yml)](https://github.com/drhelius/Gearboy/actions/workflows/gearboy.yml)
